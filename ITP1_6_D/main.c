@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/alg.h"
 
 int
 main(void)
@@ -9,14 +10,10 @@ main(void)
     int *vector;
 
     scanf("%d %d", &n, &m);
-    arr = (int **) malloc(sizeof(int *) * n);
-    for (i = 0; i < n; i++)
-        arr[i] = (int *) malloc(sizeof(int) * m);
+    arr = Malloc(n, m);
     vector = (int *) malloc(sizeof(int) * m);
 
-    for (i = 0; i < n; i++)
-        for (j = 0; j < m; j++)
-            scanf("%d", *(arr + i) + j);
+    Scanf(arr, n, m);
     for (i = 0; i < m; i++)
         scanf("%d", vector + i);
     
