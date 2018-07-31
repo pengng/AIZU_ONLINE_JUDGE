@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_SIZE 400000
+
 #define QUERY_PUSH 0
 #define QUERY_ACCESS 1
 #define QUERY_POP 2
@@ -9,33 +11,24 @@
 #define POS_FRONT 0
 #define POS_BACK 1
 
-typedef struct Node
+struct deque
 {
-    int ele;
-    struct Node * prev;
-    struct Node * next;
-} * Node;
+    int head, tail, list[MAX_SIZE];
+};
 
-typedef struct Deque
-{
-    Node head;
-    Node tail;
-    int size;
-} * Deque;
+typedef struct deque * Deque;
 
-void initDeque(Deque *);
 void pushBack(Deque, int);
 void pushFront(Deque, int);
 void popBack(Deque);
 void popFront(Deque);
 void randomAccess(Deque, int);
-void unsetDeque(Deque);
 
 int main(void) {
     int n, query, opt, val;
-    Deque d;
-
-    initDeque(&d);
+    
+    struct deque sd = {0, 0};
+    Deque d = &sd;
 
     scanf("%d", &n);
     while (n--) {
@@ -57,88 +50,33 @@ int main(void) {
                 popBack(d);
         }
     }
-    unsetDeque(d);
 
     return 0;
 }
 
-void initDeque(Deque * d)
-{
-    *d = (Deque) malloc(sizeof(struct Deque));
-    (*d)->head = (*d)->tail = NULL;
-    (*d)->size = 0;
-}
-
 void pushBack(Deque d, int x)
 {
-    Node node = (Node) malloc(sizeof(struct Node));
-    node->ele = x;
-    node->next = NULL;
-
-    if (d->size) {
-        node->prev = d->tail;
-        d->tail = d->tail->next = node;
-    } else {
-        d->head = d->tail = node;
-        node->prev = NULL;
-    }
-    d->size++;
+    d->list[d->tail] = x;
+    d->tail = (d->tail + 1) % MAX_SIZE;
 }
 
 void pushFront(Deque d, int x)
 {
-    Node node = (Node) malloc(sizeof(struct Node));
-    node->ele = x;
-    node->prev = NULL;
-
-    if (d->size) {
-        node->next = d->head;
-        d->head = d->head->prev = node;
-    } else {
-        d->head = d->tail = node;
-        node->next = NULL;
-    }
-    d->size++;
+    d->head = (d->head - 1 + MAX_SIZE) % MAX_SIZE;
+    d->list[d->head] = x;
 }
 
 void popBack(Deque d)
 {
-    Node tmp = d->tail;
-    if (d->size == 1) {
-        d->head = d->tail = NULL;
-    } else {
-        d->tail->prev->next = NULL;
-        d->tail = d->tail->prev;
-    }
-    free(tmp);
-    d->size--;
+    d->tail = (d->tail - 1 + MAX_SIZE) % MAX_SIZE;
 }
 
 void popFront(Deque d)
 {
-    Node tmp = d->head;
-    if (d->size == 1) {
-        d->head = d->tail = NULL;
-    } else {
-        d->head->next->prev = NULL;
-        d->head = d->head->next;
-    }
-    free(tmp);
-    d->size--;
+    d->head = (d->head + 1) % MAX_SIZE;
 }
 
 void randomAccess(Deque d, int p)
 {
-    Node tmp = d->head;
-    while (p--) {
-        tmp = tmp->next;
-    }
-    printf("%d\n", tmp->ele);
-}
-
-void unsetDeque(Deque d)
-{
-    while (d->size)
-        popFront(d);
-    free(d);
+    printf("%d\n", d->list[(d->head + p) % MAX_SIZE]);
 }
