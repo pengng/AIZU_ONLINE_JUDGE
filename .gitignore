@@ -1,3 +1,6 @@
 main
 *.txt
 .vscode
+*.exe
+*.obj
+.vs/
