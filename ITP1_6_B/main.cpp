@@ -4,7 +4,7 @@ using namespace std;
 int main() {
 	int x, n;
 	char c;
-	bool A[52] = {};
+	bool A[4][14] = {};
 	char C[] = { 'S', 'H', 'C', 'D' };
 
 	cin >> n;
@@ -15,13 +15,16 @@ int main() {
 		int j = 0;
 		while (C[j] != c) j++;
 
-		A[13 * j + x - 1] = true;
+		A[j][x] = true;
 	}
 
-	for (int i = 0; i < 52; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (!A[i]) {
-			cout << C[i / 13] << " " << i % 13 + 1 << endl;
+		for (int j = 1; j <= 13; j++)
+		{
+			if (!A[i][j]) {
+				cout << C[i] << " " << j << endl;
+			}
 		}
 	}
 }

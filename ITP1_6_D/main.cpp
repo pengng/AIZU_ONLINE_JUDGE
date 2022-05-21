@@ -3,7 +3,7 @@ using namespace std;
 
 int main() {
 	int n, m;
-	short A[10000], B[100];
+	short A[100][100], B[100];
 
 	cin >> n >> m;
 
@@ -11,7 +11,7 @@ int main() {
 	{
 		for (int j = 0; j < m; j++)
 		{
-			cin >> A[m * i + j];
+			cin >> A[i][j];
 		}
 	}
 
@@ -25,7 +25,7 @@ int main() {
 		int sum = 0;
 		for (int j = 0; j < m; j++)
 		{
-			sum += A[m * i + j] * B[j];
+			sum += A[i][j] * B[j];
 		}
 		cout << sum << endl;
 	}
