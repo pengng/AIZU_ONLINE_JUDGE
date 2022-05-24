@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 int main() {
@@ -7,23 +8,17 @@ int main() {
 
 	if (a > b)
 	{
-		int tmp = a;
-		a = b;
-		b = tmp;
+		swap(a, b);
 	}
 
 	if (a > c)
 	{
-		int tmp = a;
-		a = c;
-		c = tmp;
+		swap(a, c);
 	}
 
 	if (b > c)
 	{
-		int tmp = b;
-		b = c;
-		c = tmp;
+		swap(b, c);
 	}
 
 	cout << a << " " << b << " " << c << endl;
