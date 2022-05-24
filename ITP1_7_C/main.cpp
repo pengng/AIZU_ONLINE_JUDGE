@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-	int r, c, x, sum, S[100] = {};
+	int r, c, x, sum, total = 0, S[100] = {};
 
 	cin >> r >> c;
 
@@ -15,7 +15,7 @@ int main() {
 			cout << x << " ";
 			sum += x;
 			S[j] += x;
-			S[c] += x;
+			total += x;
 		}
 		cout << sum << endl;
 	}
@@ -25,5 +25,5 @@ int main() {
 		cout << S[i] << " ";
 	}
 
-	cout << S[c] << endl;
+	cout << total << endl;
 }
